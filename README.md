@@ -7,4 +7,5 @@ In this notebook we tried to give a rate to all those unrated comments and assig
 
 ## TODO:
  * exclude non-english comments/reviews 
+ * exclude very short comments/reviews
  * find a better (faster) way to get all comments for hottest games
