@@ -10,4 +10,5 @@ In this notebook we tried to give a rate to all those unrated comments and assig
  * ~~exclude very short comments/reviews~~
  * ~~added regressor~~
  * compare regressor vs classifier
+ * LSTM in build_model
  * find a better (faster) way to get all comments for hottest games
