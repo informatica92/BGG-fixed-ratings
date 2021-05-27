@@ -140,7 +140,7 @@ def print_my_examples(inputs, results, actual_values=None, limit=None):
     if actual_values is None:
         result_for_printing = [f'input:\n"{inputs[i]}"\nscore: {results[i][0]:.6f}' for i in range(len(inputs))]
     else:
-        result_for_printing = [f'input:\n"{inputs[i]}"\nscore: {results[i][0]:.6f}\nactual value:{actual_values[i]}' for i in range(len(inputs))]
+        result_for_printing = [f'input:\n"{inputs[i]}"\nscore: {results[i][0]:.6f}\nactual: {actual_values[i]}' for i in range(len(inputs))]
     if limit:
         result_for_printing = result_for_printing[:limit]
     print(*result_for_printing, sep='\n\n')
