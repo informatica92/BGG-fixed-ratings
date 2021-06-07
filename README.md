@@ -1,5 +1,5 @@
 # BGG-fixed-ratings
-BGG is the biggest boardgame (and not only) enciclopedia. If you want information about a tabletop game that is the right place. 
+[BGG](https://boardgamegeek.com/) is the biggest boardgame (and not only) enciclopedia. If you want information about a tabletop game that is the right place. 
 
 Thousands of users all over the world comment and review games so that other users can evaluate a game before buying it...BUT hundreds of comments are not rated by users and this makes the general review of a game not properly correct. 
 
