@@ -5,6 +5,40 @@ Thousands of users all over the world comment and review games so that other use
 
 In this notebook we tried to give a rate to all those unrated comments and assigned to the hottest (top 50) games, a more accurate rating
 
+## BoardGameGeek: ratings and comments 
+In each page on https://boardgamegeek.com/, a detailed list of information is returned for each game, such as: 
+-	Number of players, 
+-	Playing time, 
+-	Designer, 
+-	…
+
+
+![Image1](https://github.com/informatica92/BGG-fixed-ratings/blob/main/static/images/1.png)
+
+Also, users can add their own reviews in order to share their thought about the game in subject or simple comments that do not have a rating but in some way are another instruments for the site’s users to let others know what they think about the game.
+
+![Image2](https://github.com/informatica92/BGG-fixed-ratings/blob/main/static/images/2.png)
+
+![Image3](https://github.com/informatica92/BGG-fixed-ratings/blob/main/static/images/3.png)
+
+Our idea is to assign a hypothetical score to these comments in order to better understand the users’ preferences.
+
+## Assign a score to comments
+What we thought about is to use all the ratings available on the platform (with text and score) in order to fine-tune a pre-trained model and use it to give a score to the un-rated comments
+
+<p align="center">
+  <img src="https://github.com/informatica92/BGG-fixed-ratings/blob/main/static/images/4.png" alt="Image4"/>
+</p>
+
+In this way learning on top of the ratings: 
+
+![Image5](https://github.com/informatica92/BGG-fixed-ratings/blob/main/static/images/5.png)
+ 
+We can assign a score to simple comments like this: 
+
+![Image6](https://github.com/informatica92/BGG-fixed-ratings/blob/main/static/images/6.png)
+![Image7](https://github.com/informatica92/BGG-fixed-ratings/blob/main/static/images/7.png)
+
 ## TODO:
  * ~~exclude non-english comments/reviews~~
  * ~~exclude very short comments/reviews~~
