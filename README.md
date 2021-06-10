@@ -1,7 +1,7 @@
 # BGG-fixed-ratings
-[BGG](https://boardgamegeek.com/) is the biggest board game (and not only) encyclopedia. If you want information about a tabletop game that is the right place. 
+[BGG](https://boardgamegeek.com/) is the biggest board game (and not only) encyclopedia. If you want information about a tabletop game, that is the right place. 
 
-Thousands of users all over the world comment and review games so that other users can evaluate a game before buying it... BUT hundreds of comments are not rated by users and this makes the general review of a game not properly correct. 
+Thousands of users all over the world comment and review games so that other users can evaluate a game before buying it... But hundreds of comments are not rated by users and this makes the general review of a game not properly correct. 
 
 In this notebook we tried to give a rate to all those unrated comments and assigned to the hottest (top 50) games, a more accurate rating
 
@@ -69,7 +69,7 @@ rated_comments = comments_df.query('rating != "N/A"')
 not_rated_comments = comments_df.query('rating == "N/A"').reset_index(drop=True)
 ```
 ### Classifier training
-We decided to use a scikit-learn wrapper in order to have access to the GridSearchCV method that performs a traning based on Cross Validation check, in this way we can be sure that the performances we get are not influenced by the training/validation split  
+We decided to use a scikit-learn wrapper in order to have access to the GridSearchCV method that performs a training based on Cross Validation check, in this way we can be sure that the performances we get are not influenced by the training/validation split  
 ```python
 def build_classifier():
     return build_model(hub_layer=None, pre_trained_model_name=MODEL_NAME, model_type='classifier', verbose=0)
@@ -135,10 +135,10 @@ for i in range(len(inputs)):
     clf score: {clf_results[i][0]}
 """)
 ```
-looking at some comments and evaluating the scores assigned by the two models we can easily notice that regressor is a bit more accurate and the scores assigned are more reasonable. For this reasin we decied to continue the study with the **regressor**
+looking at some comments and evaluating the scores assigned by the two models we can easily notice that regressor is a bit more accurate and the scores assigned are more reasonable. For this reasons we decided to continue the study with the **regressor**
 
 ### Ratings weighting
-Let's use the regressor to assigna rating to all the not-rated comments and now we are ready to combine original reviews with just scored comments. 
+Let's use the regressor to assign a rating to all the not-rated comments and now we are ready to combine original reviews with just scored comments. 
 
 We can now look at the new resulting top 5 with something like: 
 
