@@ -59,6 +59,83 @@ Remove comments under a specific length
 ```python
 comments_df = remove_short_comments(comments_df, MIN_COMMENT_LEN)
 ```
+### Datasets creation
+Let's split rated and not-rated comments:
+```python
+# get rated comments only
+rated_comments = comments_df.query('rating != "N/A"')
+
+# get non rated comments only
+not_rated_comments = comments_df.query('rating == "N/A"').reset_index(drop=True)
+```
+### Classifier training
+We decided to use a scikit-learn wrapper in order to have access to the GridSearchCV method that performs a traning based on Cross Validation check, in this way we can be sure that the performances we get are not influenced by the training/validation split  
+```python
+def build_classifier():
+    return build_model(hub_layer=None, pre_trained_model_name=MODEL_NAME, model_type='classifier', verbose=0)
+
+estimator = KerasClassifier(build_fn=build_classifier, epochs=100, batch_size=1024, verbose=2, validation_split=VAL_FRACTION)
+x_train_clf = np.array(list(rated_comments.value))
+y_train_clf = np.array(list((rated_comments.rating.astype(float)>=GOOD_REVIEW_THRESHOLD).astype(int)))
+
+clf = GridSearchCV(
+    estimator, 
+    cv=3, 
+    param_grid={}
+)
+clf.fit(x_train_clf, y_train_clf, callbacks=[tf.keras.callbacks.EarlyStopping(monitor='val_accuracy', patience=5, min_delta=0.001)])
+```
+The resulting model returned the following training charts: 
+
+<table>
+  <tr style="border-collapse: collapse; border: none;">
+    <td>
+      <img src="https://github.com/informatica92/BGG-fixed-ratings/blob/main/static/images/8.png"/>
+    </td>
+    <td>
+      <img src="https://github.com/informatica92/BGG-fixed-ratings/blob/main/static/images/9.png"/> 
+    </td>
+  </tr>
+</table>
+
+and we can be quite confident saying it is a good model.
+
+### Regressor training
+Let's now try to train a classifier instead using a very similar approach:
+```python
+def build_regressor():
+    return build_model(hub_layer, pre_trained_model_name=MODEL_NAME, model_type='regressor', verbose=0)
+
+
+estimator = KerasRegressor(build_fn=build_regressor, epochs=100, batch_size=512, verbose=0, validation_split=VAL_FRACTION)
+x_train_reg = np.array(list(rated_comments.value))
+y_train_reg = np.array(list(rated_comments.rating.astype(float)))
+
+clf = GridSearchCV(
+    estimator, 
+    cv=3, 
+    param_grid={}
+)
+clf.fit(x_train_reg, y_train_reg, callbacks=[tf.keras.callbacks.EarlyStopping(monitor='val_mean_squared_error', patience=5, min_delta=0.001)])
+```
+that returns the following training chart (here loss and metric - mean squared error - match):
+
+![Image10](https://github.com/informatica92/BGG-fixed-ratings/blob/main/static/images/10.png)
+
+### Model comparison
+```python
+not_rated_comments = not_rated_comments.sample(frac=1)
+inputs = list(not_rated_comments.value.astype(str))[:10]
+
+clf_results = classifier.predict(inputs, verbose=0)
+reg_results = regressor.predict(inputs, verbose=0)
+for i in range(len(inputs)):
+    print(f"""\"{inputs[i]}\"
+    reg score: {reg_results[i]:.2f}
+    clf score: {clf_results[i][0]}
+""")
+```
+looking at some comments and evaluating the scores assigned by the two models we can easily notice that regressor is a bit more accurate and the scores assigned are more reasonable. For this reasin we decied to continue the study with the **regressor**
 
 ## TODO:
  * ~~exclude non-english comments/reviews~~
