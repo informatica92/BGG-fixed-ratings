@@ -159,3 +159,4 @@ display_topn(by='fixed_rating', n=TOP_N, ascending=False)
  * ~~clip regressor results~~
  * LSTM in build_model
  * find a better (faster) way to get all comments for hottest games
+ * test tensorflow/decision-forests 
