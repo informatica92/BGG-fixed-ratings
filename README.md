@@ -39,6 +39,27 @@ We can assign a score to simple comments like this:
 ![Image6](https://github.com/informatica92/BGG-fixed-ratings/blob/main/static/images/6.png)
 ![Image7](https://github.com/informatica92/BGG-fixed-ratings/blob/main/static/images/7.png)
 
+## Code key points
+### Data acquisition
+Let's start collecting the hottest games in order to get some titles to get reviews and comments from with: 
+```python
+hot_array = get_hot_data()
+hot_array[:2]
+```
+and then let's use this list to get corresponding reviews and comment using another utility function: 
+```python
+comments_df = get_comments(hot_array, verbose=10)  # verbose=10 means print a row each 10 iterations
+```
+### Data cleaning
+Remove URLs from ratings/comments
+```python
+comments_df['value'] = [re.sub(r"http\S+", "", v) for v in comments_df.value.values]
+```
+Remove comments under a specific length
+```python
+comments_df = remove_short_comments(comments_df, MIN_COMMENT_LEN)
+```
+
 ## TODO:
  * ~~exclude non-english comments/reviews~~
  * ~~exclude very short comments/reviews~~
