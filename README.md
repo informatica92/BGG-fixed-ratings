@@ -137,6 +137,20 @@ for i in range(len(inputs)):
 ```
 looking at some comments and evaluating the scores assigned by the two models we can easily notice that regressor is a bit more accurate and the scores assigned are more reasonable. For this reasin we decied to continue the study with the **regressor**
 
+### Ratings weighting
+Let's use the regressor to assigna rating to all the not-rated comments and now we are ready to combine original reviews with just scored comments. 
+
+We can now look at the new resulting top 5 with something like: 
+
+```python
+# TOP N FIXED RANK
+display_topn(by='fixed_rating', n=TOP_N, ascending=False)
+```
+
+<p align="center">
+  <img src="https://github.com/informatica92/BGG-fixed-ratings/blob/main/static/images/11.PNG" alt="Image4"/>
+</p>
+
 ## TODO:
  * ~~exclude non-english comments/reviews~~
  * ~~exclude very short comments/reviews~~
